@@ -1,6 +1,6 @@
 {
   "name": "@testsigmainc/ts-curlconverter",
-  "version": "4.11.0",
+  "version": "1.0.0",
   "description": "convert curl commands to Json",
   "homepage": "https://github.com/TestsigmaInc/ts-curlconverter/blob/ts-master/README.md",
   "author": "",
@@ -17,6 +17,9 @@
     "curl-to-json",
     "converter"
   ],
+  "publishConfig": {
+    "@testsigmainc:registry": "https://npm.pkg.github.com"
+  },
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
