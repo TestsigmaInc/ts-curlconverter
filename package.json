@@ -1,35 +1,30 @@
 {
-  "name": "curlconverter",
+  "name": "@testsigmainc/ts-curlconverter",
   "version": "4.11.0",
-  "description": "convert curl commands to Python, JavaScript, Go, PHP and more",
-  "homepage": "https://curlconverter.com",
-  "author": {
-    "name": "Nick Carneiro",
-    "email": "nickc@trillworks.com",
-    "url": "https://trillworks.com"
-  },
+  "description": "convert curl commands to Json",
+  "homepage": "https://github.com/TestsigmaInc/ts-curlconverter/blob/ts-master/README.md",
+  "author": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/curlconverter/curlconverter.git"
+    "url": "https://github.com/TestsigmaInc/ts-curlconverter.git"
   },
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TestsigmaInc/ts-curlconverter/issues"
+  },
   "keywords": [
     "curl",
-    "http",
-    "requests",
-    "python",
+    "curl-to-json",
     "converter"
   ],
   "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "type": "module",
   "dependencies": {
-    "jsesc": "^3.0.2",
-    "lossless-json": "^4.0.2",
     "tree-sitter": "^0.21.1",
     "tree-sitter-bash": "^0.23.1",
-    "web-tree-sitter": "^0.24.3",
-    "yamljs": "^0.3.0"
+    "web-tree-sitter": "^0.24.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
