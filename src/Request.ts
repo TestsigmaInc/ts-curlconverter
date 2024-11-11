@@ -987,12 +987,9 @@ function buildRequest(
     headers.setIfMissing("Content-Type", "application/json");
     headers.setIfMissing("Accept", "application/json");
   } else if (config.data) {
-    headers.setIfMissing("Content-Type", "application/x-www-form-urlencoded");
+    headers.setIfMissing("Content-Type", "text/plain");
   } else if (config.form) {
-    // TODO: warn when details (;filename=, etc.) are not supported
-    // by each converter.
     request.multipartUploads = parseForm(config.form, global_.warnings);
-    //headers.setIfMissing("Content-Type", "multipart/form-data");
   }
   const contentType = headers.getContentType();
   const exactContentType = headers.get("Content-Type");
