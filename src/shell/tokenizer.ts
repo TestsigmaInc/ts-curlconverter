@@ -595,6 +595,7 @@ function extractCommandNodes(
         warnAboutUselessBackslash(n, curlCommandLines, warnings);
         break;
       case "heredoc_body": // https://github.com/tree-sitter/tree-sitter-bash/issues/118
+      case "variable_assignment": // https://github.com/curlconverter/curlconverter/issues/703
         continue;
       case "ERROR":
         throw new CCError(
