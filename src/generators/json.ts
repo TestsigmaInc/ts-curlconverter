@@ -51,6 +51,7 @@ export type JSONOutput = {
   queries?: { [key: string]: string | string[] };
   // `| any` because of JSON
   data?: { [key: string]: string } | string | any;
+  form?: { [key: string]: string } | string | any;
   // raw_data?: string[],
   files?: { [key: string]: string };
   // raw_files: string[],
@@ -115,7 +116,7 @@ function getDataString(
 function getFilesString(
   request: Request,
 ):
-  | { files?: { [key: string]: string }; data?: { [key: string]: string } }
+  | { files?: { [key: string]: string }; form?: { [key: string]: string } }
   | undefined {
   if (!request.multipartUploads) {
     return undefined;
@@ -139,7 +140,7 @@ function getFilesString(
 
   return {
     files: Object.keys(data.files).length ? data.files : undefined,
-    data: Object.keys(data.data).length ? data.data : undefined,
+    form: Object.keys(data.data).length ? data.data : undefined,
   };
 }
 
