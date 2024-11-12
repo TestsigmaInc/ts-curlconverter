@@ -14,8 +14,8 @@
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "noImplicitReturns": true,
-    "declaration": true
+    "declaration": true,
   },
-  "include": ["src", "test", "tools", "index.d.ts"],
-  "exclude": ["tools/extract_curl_args.py", "test/fixtures", "node_modules"]
+  "include": ["src", "test", "index.d.ts"],
+  "exclude": ["test/fixtures", "node_modules"]
 }
