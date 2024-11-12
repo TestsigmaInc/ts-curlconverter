@@ -7,10 +7,10 @@ import Parser from "web-tree-sitter";
 await Parser.init({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   locateFile(scriptName: string, scriptDirectory: string) {
-    return "/ui/" + scriptName;
+    return "/ui/node_modules/web-tree-sitter/" + scriptName;
   },
 });
-const Bash = await Parser.Language.load("/ui/tree-sitter-bash.wasm");
+const Bash = await Parser.Language.load("/ui/node_modules/@testsigmainc/ts-curlconverter/dist/tree-sitter-bash.wasm");
 const parser = new Parser();
 parser.setLanguage(Bash);
 
