@@ -68,8 +68,8 @@ jobs:
 
       - name: Replace placeholder with S3 URL
         run: |
-          sed -i "s/__S3_PATH__/${{ env.S3_PATH }}/g" src/shell/webParser.ts
-          
+          sed -i "s|__S3_PATH__|${{ env.S3_PATH }}|g" src/shell/webParser.ts
+
       - name: Build the dist 🔧
         run: npm run compile
 
