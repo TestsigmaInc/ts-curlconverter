@@ -14,8 +14,9 @@ jobs:
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
-      - name: Install dependencies and build 🔧
-        run: npm install && npm run compile
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Set release information
         run: |
@@ -64,6 +65,13 @@ jobs:
           echo TREE_SITTER_BASH_PATH=https://${{ env.S3_PATH }}tree-sitter-bash.wasm >> .env
           echo TREE_SITTER_PATH=https://${{ env.S3_PATH }}tree-sitter.wasm >> .env
           cat .env
+
+      - name: Replace placeholder with S3 URL
+        run: |
+          sed -i "s/__S3_PATH__/${{ env.S3_PATH }}/g" src/shell/webParser.ts
+          
+      - name: Build the dist 🔧
+        run: npm run compile
 
       - name: Publish package on Github 📦
         run: npm publish
