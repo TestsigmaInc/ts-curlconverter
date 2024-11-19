@@ -18,18 +18,17 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: Install dependencies and build 🔧
         run: npm install && npm run compile
+
       - name: Publish package on Github 📦
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
       - name: Set release information
         run: |
           echo "prerelease=${{ github.event.release.prerelease }}" >> $GITHUB_ENV
           echo "tag_name=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
-      - name: Display release information
-        run: |
-          echo "Pre-release: ${{ env.prerelease }}"
-          echo "Tag name: ${{ env.tag_name }}"
+
       - name: Set environment variables
         run: |
           if [ "${{ env.prerelease }}" = "true" ]; then
@@ -41,7 +40,13 @@ jobs:
           fi
           echo "AWS_DEFAULT_REGION=us-east-1" >> $GITHUB_ENV
 
-       # Upload tree-sitter files to S3 bucket
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
       - name: Push tree-sitter files into S3 bucket
         run: |
           # Determine the correct S3 bucket based on pre-release status
@@ -58,6 +63,7 @@ jobs:
           # Upload files to the determined S3 bucket
           aws s3 cp dist/tree-sitter-bash.wasm $S3_PATH --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --cache-control max-age=315360000
           aws s3 cp node_modules/web-tree-sitter/tree-sitter.wasm $S3_PATH --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --cache-control max-age=315360000
+          
       - name: 'Create env file'
         run: |
           rm -rf .env
