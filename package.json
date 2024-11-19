@@ -1,6 +1,6 @@
 {
   "name": "@testsigmainc/ts-curlconverter",
-  "version": "v1.0.2-beta.3",
+  "version": "v1.0.2-beta.4",
   "description": "convert curl commands to Json",
   "homepage": "https://github.com/TestsigmaInc/ts-curlconverter/blob/ts-master/README.md",
   "author": "",
