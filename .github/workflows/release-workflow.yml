@@ -52,7 +52,7 @@ jobs:
           fi
 
           S3_PATH="s3://$S3_BUCKET/ui/ts-curlconverter/${{ env.tag_name }}/"
-          echo "S3_PATH=$S3_PATH" >> $GITHUB_ENV
+          echo "S3_PATH=$S3_BUCKET/ui/ts-curlconverter/${{ env.tag_name }}/" >> $GITHUB_ENV
 
           # Upload files to the determined S3 bucket
           aws s3 cp dist/tree-sitter-bash.wasm $S3_PATH --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --cache-control max-age=315360000
