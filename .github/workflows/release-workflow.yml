@@ -58,14 +58,6 @@ jobs:
           aws s3 cp dist/tree-sitter-bash.wasm $S3_PATH --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --cache-control max-age=315360000
           aws s3 cp node_modules/web-tree-sitter/tree-sitter.wasm $S3_PATH --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --cache-control max-age=315360000
 
-      - name: 'Create env file'
-        run: |
-          rm -rf .env
-          touch .env
-          echo TREE_SITTER_BASH_PATH=https://${{ env.S3_PATH }}tree-sitter-bash.wasm >> .env
-          echo TREE_SITTER_PATH=https://${{ env.S3_PATH }}tree-sitter.wasm >> .env
-          cat .env
-
       - name: Replace placeholder with S3 URL
         run: |
           sed -i "s|__S3_PATH__|${{ env.S3_PATH }}|g" src/shell/webParser.ts
