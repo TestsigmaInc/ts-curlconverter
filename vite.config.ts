@@ -12,8 +12,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.ts",
-      name: "MyLibrary",
-      fileName: (format) => `my-library.${format}.js`,
+      name: "ts-curlconverter",
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ["vue"],
