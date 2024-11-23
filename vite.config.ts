@@ -15,13 +15,6 @@ export default defineConfig({
       name: "ts-curlconverter",
       fileName: (format) => `index.${format}.js`,
     },
-    rollupOptions: {
-      external: ["vue"],
-      output: {
-        globals: {
-          vue: "Vue",
-        },
-      },
-    },
+    rollupOptions: {},
   },
 });
