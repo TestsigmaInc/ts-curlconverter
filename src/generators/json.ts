@@ -75,15 +75,21 @@ export type JSONOutput = {
   output?: string;
 };
 
+export interface JsonOptions {
+  /** Answer a JSON body as the text given, so its formatting and large numbers survive. */
+  keepJsonText?: boolean;
+}
+
 function getDataString(
   request: Request,
+  options: JsonOptions = {},
 ): { [key: string]: string | string[] } | string {
   if (!request.data) {
     return {};
   }
 
   const contentType = request.headers.getContentType();
-  if (contentType === "application/json") {
+  if (contentType === "application/json" && !options.keepJsonText) {
     try {
       return JSON.parse(request.data.toString());
     } catch (e) {}
@@ -147,6 +153,7 @@ function getFilesString(
 export function _toJsonObject(
   requests: Request[],
   warnings: Warnings = [],
+  options: JsonOptions = {},
 ): JSONOutput {
   const request = getFirst(requests, warnings);
   const requestUrl = request.urls[0];
@@ -197,7 +204,7 @@ export function _toJsonObject(
   }
 
   if (request.data) {
-    requestJson.data = getDataString(request);
+    requestJson.data = getDataString(request, options);
   } else if (request.multipartUploads) {
     // TODO: not Object.assign, doesn't work with type system
     Object.assign(requestJson, getFilesString(request));
@@ -259,13 +266,17 @@ export function _toJsonObject(
 export function toJsonObjectWarn(
   curlCommand: string | string[],
   warnings: Warnings = [],
+  options: JsonOptions = {},
 ): [JSONOutput, Warnings] {
   const requests = parse(curlCommand, supportedArgs, warnings);
-  const json = _toJsonObject(requests, warnings);
+  const json = _toJsonObject(requests, warnings, options);
   return [json, warnings];
 }
-export function toJsonObject(curlCommand: string | string[]): JSONOutput {
-  return toJsonObjectWarn(curlCommand)[0];
+export function toJsonObject(
+  curlCommand: string | string[],
+  options: JsonOptions = {},
+): JSONOutput {
+  return toJsonObjectWarn(curlCommand, [], options)[0];
 }
 
 export function _toJsonString(

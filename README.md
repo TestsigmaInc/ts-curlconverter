@@ -138,7 +138,20 @@ curlconverter.toPythonWarn(['curl', 'ftp://example.com']);
 // ]
 ```
 
-If you want to host curlconverter yourself and use it in the browser, it needs two [WASM](https://developer.mozilla.org/en-US/docs/WebAssembly) files to work, `tree-sitter.wasm` and `tree-sitter-bash.wasm`, which it will request from the root directory of your web server. If you are hosting a static website and using Webpack, you need to copy these files from the node_modules/ directory to your server's root directory in order to serve them. You can look at the [webpack.config.js](https://github.com/curlconverter/curlconverter.github.io/blob/2e1722891be22b1bb5c47976fb7873f6eb86b94d/webpack.config.js#L130-L131) for [curlconverter.com](https://curlconverter.com/) to see how this is done. You will also need to set `{module: {experiments: {topLevelAwait: true}}}` in your webpack.config.js.
+In the browser it needs two [WASM](https://developer.mozilla.org/en-US/docs/WebAssembly) files, `tree-sitter.wasm` (from `web-tree-sitter`) and `tree-sitter-bash.wasm` (in this package's `dist/`). Serve both from one folder and load them once before converting:
+
+```js
+import { initCurlConverter, toJsonObject } from "@testsigmainc/ts-curlconverter";
+
+await initCurlConverter({ wasmBaseUrl: "https://static.example.com/ts-curlconverter/1.0.1/" });
+toJsonObject("curl -X POST https://example.com -d 'a=1'");
+```
+
+Converting before the load finishes throws. Calling `initCurlConverter` again reuses the first load. `wasmBaseUrl` may be a URL or a path on the page's origin, with or without a trailing `/`. If `tree-sitter.wasm` cannot be loaded, the promise rejects and later calls reject too until the page reloads, because `web-tree-sitter` keeps its first load. A Vite app that sets `VITE_TREE_SITTER_FILES_S3_URL` still loads on import, before its own code runs, without calling it.
+
+Serve the `tree-sitter.wasm` of the `web-tree-sitter` version this package pins (0.24.3); the JavaScript loader and its wasm must come from the same build.
+
+In Node the native `tree-sitter` and `tree-sitter-bash` packages are used instead. They are optional dependencies, installed by default; when they are missing, `initCurlConverter` rejects and converting throws. A bundler building for a server never needs them, since the Node build loads them at run time.
 
 ### Usage in VS Code
 

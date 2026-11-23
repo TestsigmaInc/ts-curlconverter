@@ -10,6 +10,8 @@ export default defineConfig({
     ),
   },
   build: {
+    // dist/ also holds tree-sitter-bash.wasm, which `prepare` builds; a compile must not delete it.
+    emptyOutDir: false,
     lib: {
       entry: "src/index.ts",
       name: "ts-curlconverter",
