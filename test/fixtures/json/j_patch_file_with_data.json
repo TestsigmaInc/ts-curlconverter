@@ -5,7 +5,7 @@
     "files": {
         "file1": "./test/fixtures/curl_commands/delete.sh"
     },
-    "data": {
+    "form": {
         "form1": "form+data+1",
         "form2": "form_data_2"
     }

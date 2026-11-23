@@ -3,7 +3,7 @@
     "raw_url": "http://localhost:28139/webservices/rest.php",
     "method": "post",
     "headers": {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "text/plain"
     },
     "data": "version=1.2&auth_user=fdgxf&auth_pwd=oxfdscds&json_data={ \"operation\": \"core/get\", \"class\": \"Software\", \"key\": \"key\" }"
 }
