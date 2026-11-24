@@ -53,7 +53,7 @@ const testedConverters = Object.entries(converters).map(
   (c) => c[1].converter.name,
 );
 const untestedConverters = ["toPhpRequests"];
-const notConverterExports = ["Word"];
+const notConverterExports = ["Word", "init"];
 
 const availableConverters = Object.entries(curlconverter)
   .map((c) => c[1].name)
