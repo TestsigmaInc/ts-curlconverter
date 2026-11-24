@@ -143,7 +143,7 @@ In the browser it needs two [WASM](https://developer.mozilla.org/en-US/docs/WebA
 ```js
 import { initCurlConverter, toJsonObject } from "@testsigmainc/ts-curlconverter";
 
-await initCurlConverter({ wasmBaseUrl: "https://static.example.com/ts-curlconverter/1.0.1/" });
+await initCurlConverter({ wasmBaseUrl: "https://static.example.com/ts-curlconverter/1.1.0/" });
 toJsonObject("curl -X POST https://example.com -d 'a=1'");
 ```
 
